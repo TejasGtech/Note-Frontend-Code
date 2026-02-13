@@ -15,6 +15,7 @@ const Note = () => {
       try{
         const responce = await axios.post('https://notes-backend-code.onrender.com/api/note/CreateNotes',{title : title,notes : notes},{ withCredentials: true })
         setMessage(responce.data.message);
+         console.log(response.data);
          setTitle("");
          setNotes("");
         await  FetchNotes();
