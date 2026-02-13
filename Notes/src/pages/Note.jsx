@@ -18,7 +18,11 @@ const Note = () => {
          console.log(response.data);
          setTitle("");
          setNotes("");
-        await  FetchNotes();
+         try{
+            await FetchNotes();
+         }catch(err){
+            setMessage('fetch error, click refresh'); 
+         }
       }catch(error){
         setMessage('Notes create fail');
       }
