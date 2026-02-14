@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
+
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
+  const[loading,setLoading]=useState(false)
 
   const navigate = useNavigate();
 
   const RegisterUser = async () => {
+    setLoading(true);
     try {
       const responce = await axios.post(
         "https://notes-backend-code.onrender.com/api/auth/register",
@@ -26,7 +29,10 @@ const Register = () => {
     } catch (error) {
       setMessage("registration failed");
     }
+    setLoading(false);
   };
+
+  
   return (
     <div
       style={{
@@ -85,7 +91,7 @@ const Register = () => {
           backgroundColor: "#fade26",
         }}
       >
-        <h3>Regsiter</h3>
+        {loading ? <h3>Loading....</h3> : <h3>Register</h3>}
       </button>
       <h3 style={{ color: "#fff" }}>
         I have account?{" "}

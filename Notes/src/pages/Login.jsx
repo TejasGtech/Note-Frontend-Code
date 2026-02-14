@@ -6,10 +6,12 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+   const[loading,setLoading]=useState(false)
 
   const navigate = useNavigate();
 
   const LoginUser = async () => {
+    setLoading(true);
     try {
       const responce = await axios.post(
         "https://notes-backend-code.onrender.com/api/auth/login",
@@ -26,6 +28,7 @@ const Login = () => {
     } catch (error) {
       setMessage("Login failed");
     }
+    setLoading(false);
   };
   return (
     <div
@@ -72,7 +75,7 @@ const Login = () => {
           backgroundColor: "#fade26",
         }}
       >
-        Login Now
+       {loading ? <h3>Loading....</h3> : <h3>Login</h3>}
       </button>
       <h3 style={{ color: "#fff" }}>
         I don't have account?{" "}

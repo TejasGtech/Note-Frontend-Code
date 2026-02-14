@@ -12,11 +12,13 @@ const UpdateNote = () => {
   const [title, setTitle] = useState(title_se);
   const [notes, setNotes] = useState(notes_se);
   const [message, setMessage] = useState("");
+   const[loading,setLoading]=useState(false)
 
   const navigate = useNavigate();
 
   const handleUpdate = async () => {
     try {
+      setLoading(true);
       const response = await axios.post(
         `https://notes-backend-code.onrender.com/api/note/UpdateTitle/${id}`,
         { title },
@@ -26,9 +28,12 @@ const UpdateNote = () => {
       setMessage(response.data.message);
       handleUpdate2();
       navigate("/note");
+      setLoading(false);
+
     } catch (error) {
       console.error(error);
       setMessage("Update failed");
+      setLoading(false);
     }
   };
 
@@ -43,9 +48,11 @@ const UpdateNote = () => {
       setMessage(response.data.message);
 
       navigate("/note");
+      setLoading(false);
     } catch (error) {
       console.error(error);
       setMessage("Update failed");
+      setLoading(false);
     }
   };
 
@@ -87,7 +94,7 @@ const UpdateNote = () => {
           borderRadius: "20px",
           marginTop: "10px",
           backgroundColor:"#fade26"
-        }} onClick={handleUpdate}>Update note</button>
+        }} onClick={handleUpdate}> {loading ? <h3>Loading....</h3> : <h3>Update</h3>}</button>
     </div>
   );
 };
