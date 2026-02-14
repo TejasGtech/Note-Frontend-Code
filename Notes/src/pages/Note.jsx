@@ -1,30 +1,33 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Backend_URL from "../config";
 
 const Note = () => {
   const [title, setTitle] = useState("");
   const [notes, setNotes] = useState("");
   const [message, setMessage] = useState("");
-  const [noteData, setNoteData] = useState([{id:1,"title":"hello","notes":"hello"}]);
-   const[loading,setLoading]=useState(false)
+  const [noteData, setNoteData] = useState([
+    { id: 1, title: "hello", notes: "hello" },
+  ]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const CreateNote = async () => {
     setLoading(true);
     try {
       const responce = await axios.post(
-        "https://notes-backend-code.onrender.com/api/note/CreateNotes",
+        `${Backend_URL}/api/note/CreateNotes`,
         { title: title, notes: notes },
         { withCredentials: true },
       );
       setMessage(responce.data.message);
       setTitle("");
       setNotes("");
-      try{
-         await FetchNotes();
-      }catch(err){
-          setMessage('Notes fetch fail(Click refersh to see notes)');
+      try {
+        await FetchNotes();
+      } catch (err) {
+        setMessage("Notes fetch fail(Click refersh to see notes)");
       }
     } catch (error) {
       setMessage("Notes create fail");
@@ -33,28 +36,24 @@ const Note = () => {
   };
 
   const FetchNotes = async () => {
-  
     try {
-      const response = await axios.get(
-        "https://notes-backend-code.onrender.com/api/note/FetchNotes",
-        { withCredentials: true },
-      );
+      const response = await axios.get(`${Backend_URL}/api/note/FetchNotes`, {
+        withCredentials: true,
+      });
 
       setNoteData(response.data.fetchdata);
     } catch (error) {
       console.error(error);
       setMessage("Notes fetch fails");
     }
- 
   };
 
   const DeleteNote = async (id) => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        `https://notes-backend-code.onrender.com/api/note/Delete/${id}`,
-        { withCredentials: true },
-      );
+      const response = await axios.get(`${Backend_URL}/api/note/Delete/${id}`, {
+        withCredentials: true,
+      });
 
       setMessage(response.data.message);
 
@@ -74,19 +73,16 @@ const Note = () => {
   };
 
   const Logout = async () => {
-  
     try {
-      const res = await axios.get(
-        "https://notes-backend-code.onrender.com/api/auth/logout",
-        { withCredentials: true },
-      );
+      const res = await axios.get(`${Backend_URL}/api/auth/logout`, {
+        withCredentials: true,
+      });
 
       setMessage(res.data.message);
       navigate("/");
     } catch (error) {
       setMessage("logout error occure");
     }
-  
   };
 
   useEffect(() => {
@@ -114,7 +110,7 @@ const Note = () => {
           height: "40px",
         }}
       >
-          Logout
+        Logout
       </button>
 
       <h2 style={{ color: "#fade26" }}>Create notes</h2>
@@ -154,7 +150,7 @@ const Note = () => {
           backgroundColor: "#fade26",
         }}
       >
-           {loading ? <h3>Loading....</h3> : <h3>Create note</h3>}
+        {loading ? <h3>Loading....</h3> : <h3>Create note</h3>}
       </button>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <h1 style={{ color: "#fade26" }}>All Notes</h1>
@@ -169,7 +165,7 @@ const Note = () => {
             backgroundColor: "#79cbdb",
           }}
         >
-        Refresh
+          Refresh
         </button>
       </div>
 
@@ -191,37 +187,38 @@ const Note = () => {
                 Title :{elem.title}
               </h4>
               <h5 style={{ marginLeft: "20px" }}>Notes: {elem.notes}</h5>
-              <div style={{display:'flex',}}>
-              <button
-                onClick={() => DeleteNote(elem._id)}
-                style={{
-                  backgroundColor: "red",
-                  width: "100px",
-                  height: "30px",
-                  borderRadius: "20px",
-                  marginLeft: "10px",
-                  color: "#fff",
-                  display:'flex',
-                  justifyContent:'center',
-                  alignItems:'center'
-                  
-                }}
-              >
-                <h4 style={{marginBottom:"10px"}}>{loading ? <h4>Loading....</h4> : <h4>Delete</h4>}</h4>
-              </button>
-              <button
-                onClick={() => sendID(elem)}
-                style={{
-                  backgroundColor: "green",
-                  width: "100px",
-                  height: "30px",
-                  borderRadius: "20px",
-                  marginLeft: "10px",
-                  color: "#fff",
-                }}
-              >
-                Update note
-              </button>
+              <div style={{ display: "flex" }}>
+                <button
+                  onClick={() => DeleteNote(elem._id)}
+                  style={{
+                    backgroundColor: "red",
+                    width: "100px",
+                    height: "30px",
+                    borderRadius: "20px",
+                    marginLeft: "10px",
+                    color: "#fff",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <h4 style={{ marginBottom: "10px" }}>
+                    {loading ? <h4>Loading....</h4> : <h4>Delete</h4>}
+                  </h4>
+                </button>
+                <button
+                  onClick={() => sendID(elem)}
+                  style={{
+                    backgroundColor: "green",
+                    width: "100px",
+                    height: "30px",
+                    borderRadius: "20px",
+                    marginLeft: "10px",
+                    color: "#fff",
+                  }}
+                >
+                  Update note
+                </button>
               </div>
             </div>
           ))}

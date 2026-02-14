@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-
+import Backend_URL from "../config";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
-  const[loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ const Register = () => {
     setLoading(true);
     try {
       const responce = await axios.post(
-        "https://notes-backend-code.onrender.com/api/auth/register",
+        `${Backend_URL}/api/auth/register`,
         { username: username, email: email, password: password },
         { withCredentials: true },
       );
@@ -32,7 +32,6 @@ const Register = () => {
     setLoading(false);
   };
 
-  
   return (
     <div
       style={{

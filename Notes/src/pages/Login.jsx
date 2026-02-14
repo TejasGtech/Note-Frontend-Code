@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Backend_URL from "../config";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-   const[loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -14,7 +15,7 @@ const Login = () => {
     setLoading(true);
     try {
       const responce = await axios.post(
-        "https://notes-backend-code.onrender.com/api/auth/login",
+        `${Backend_URL}/api/auth/login`,
         { email: email, password: password },
         { withCredentials: true },
       );
@@ -75,7 +76,7 @@ const Login = () => {
           backgroundColor: "#fade26",
         }}
       >
-       {loading ? <h3>Loading....</h3> : <h3>Login</h3>}
+        {loading ? <h3>Loading....</h3> : <h3>Login</h3>}
       </button>
       <h3 style={{ color: "#fff" }}>
         I don't have account?{" "}
