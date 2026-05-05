@@ -14,15 +14,12 @@ const Login = () => {
   const LoginUser = async () => {
     setLoading(true);
     try {
-      const responce = await axios.post(
+      const response = await axios.post(
         `${Backend_URL}/api/auth/login`,
         { email: email, password: password },
         { withCredentials: true },
       );
-      setMessage(responce.data.message);
-      console.log(responce);
-      console.log(email.password);
-
+      setMessage(response.data.message);
       setEmail("");
       setPassword("");
       setTimeout(() => navigate("/note"), 300);
@@ -31,59 +28,205 @@ const Login = () => {
     }
     setLoading(false);
   };
+
   return (
     <div
       style={{
+        position: "relative",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        overflow: "hidden",
       }}
     >
-      <h1 style={{ color: "#fade26" }}>Login Now</h1>
-      <h4 style={{ color: "red" }}>{message}</h4>
-      <input
-        type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Enter email"
-        style={{
-          width: "400px",
-          height: "50px",
-          borderRadius: "20px",
-          marginTop: "10px",
-        }}
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Enter password"
-        style={{
-          width: "400px",
-          height: "50px",
-          borderRadius: "20px",
-          marginTop: "10px",
-        }}
-      />
-      <button
-        onClick={LoginUser}
-        style={{
-          width: "400px",
-          height: "50px",
-          borderRadius: "20px",
-          marginTop: "10px",
-          backgroundColor: "#fade26",
-        }}
-      >
-        {loading ? <h3>Loading....</h3> : <h3>Login</h3>}
-      </button>
-      <h3 style={{ color: "#fff" }}>
-        I don't have account?{" "}
-        <Link to="/register" style={{ color: "#fade26" }}>
-          Register
-        </Link>
-      </h3>
+      {/* Animated background shapes */}
+      <div style={{
+        position: "absolute",
+        top: "-10%",
+        right: "-5%",
+        width: "300px",
+        height: "300px",
+        background: "rgba(255, 255, 255, 0.1)",
+        borderRadius: "50%",
+        animation: "float 20s infinite ease-in-out",
+      }} />
+      <div style={{
+        position: "absolute",
+        bottom: "-10%",
+        left: "-5%",
+        width: "400px",
+        height: "400px",
+        background: "rgba(255, 255, 255, 0.05)",
+        borderRadius: "50%",
+        animation: "float 15s infinite ease-in-out reverse",
+      }} />
+
+      {/* Main card */}
+      <div style={{
+        backgroundColor: "rgba(255, 255, 255, 0.95)",
+        borderRadius: "30px",
+        padding: "40px",
+        width: "450px",
+        boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)",
+        animation: "fadeInUp 0.6s ease-out",
+        zIndex: 2,
+      }}>
+        <h1 style={{
+          color: "#764ba2",
+          textAlign: "center",
+          fontSize: "36px",
+          marginBottom: "10px",
+          fontWeight: "bold",
+        }}>
+          Welcome Back
+        </h1>
+        <p style={{
+          textAlign: "center",
+          color: "#666",
+          marginBottom: "30px",
+          fontSize: "14px",
+        }}>
+          Login to access your notes
+        </p>
+
+        {message && (
+          <div style={{
+            backgroundColor: message.includes("failed") ? "#fee" : "#d4edda",
+            color: message.includes("failed") ? "#c33" : "#155724",
+            padding: "10px",
+            borderRadius: "10px",
+            marginBottom: "20px",
+            textAlign: "center",
+            fontSize: "14px",
+          }}>
+            {message}
+          </div>
+        )}
+
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="📧 Email"
+          style={{
+            width: "100%",
+            padding: "15px",
+            fontSize: "16px",
+            border: "2px solid #e0e0e0",
+            borderRadius: "12px",
+            marginBottom: "15px",
+            outline: "none",
+            transition: "all 0.3s ease",
+            boxSizing: "border-box",
+          }}
+          onFocus={(e) => {
+            e.target.style.borderColor = "#764ba2";
+            e.target.style.boxShadow = "0 0 0 3px rgba(118, 75, 162, 0.1)";
+          }}
+          onBlur={(e) => {
+            e.target.style.borderColor = "#e0e0e0";
+            e.target.style.boxShadow = "none";
+          }}
+        />
+
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="🔒 Password"
+          style={{
+            width: "100%",
+            padding: "15px",
+            fontSize: "16px",
+            border: "2px solid #e0e0e0",
+            borderRadius: "12px",
+            marginBottom: "25px",
+            outline: "none",
+            transition: "all 0.3s ease",
+            boxSizing: "border-box",
+          }}
+          onFocus={(e) => {
+            e.target.style.borderColor = "#764ba2";
+            e.target.style.boxShadow = "0 0 0 3px rgba(118, 75, 162, 0.1)";
+          }}
+          onBlur={(e) => {
+            e.target.style.borderColor = "#e0e0e0";
+            e.target.style.boxShadow = "none";
+          }}
+        />
+
+        <button
+          onClick={LoginUser}
+          disabled={loading}
+          style={{
+            width: "100%",
+            padding: "15px",
+            fontSize: "16px",
+            fontWeight: "bold",
+            border: "none",
+            borderRadius: "12px",
+            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            color: "white",
+            cursor: loading ? "not-allowed" : "pointer",
+            transition: "all 0.3s ease",
+            marginBottom: "20px",
+            opacity: loading ? 0.7 : 1,
+          }}
+          onMouseEnter={(e) => {
+            if (!loading) {
+              e.target.style.transform = "translateY(-2px)";
+              e.target.style.boxShadow = "0 5px 15px rgba(0, 0, 0, 0.2)";
+            }
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.transform = "translateY(0)";
+            e.target.style.boxShadow = "none";
+          }}
+        >
+          {loading ? "Logging in..." : "🔐 Login"}
+        </button>
+
+        <p style={{ textAlign: "center", color: "#666", fontSize: "14px" }}>
+          Don't have an account?{" "}
+          <Link to="/register" style={{
+            color: "#764ba2",
+            textDecoration: "none",
+            fontWeight: "bold",
+          }}>
+            Register →
+          </Link>
+        </p>
+      </div>
+
+      <style>
+        {`
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          
+          @keyframes float {
+            0%, 100% {
+              transform: translateY(0) translateX(0);
+            }
+            33% {
+              transform: translateY(-30px) translateX(20px);
+            }
+            66% {
+              transform: translateY(20px) translateX(-20px);
+            }
+          }
+        `}
+      </style>
     </div>
   );
 };
