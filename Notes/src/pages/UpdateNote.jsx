@@ -59,7 +59,7 @@ const UpdateNote = () => {
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-      <h1 style={{ color: "#fade26" }}>Update Note</h1>
+      <h1 style={{ color: "#F8FAFC" }}>Update Note</h1>
 
       <h4 style={{ color: "red" }}>{message}</h4>
 
@@ -73,6 +73,8 @@ const UpdateNote = () => {
           height: "50px",
           borderRadius: "20px",
           marginTop: "10px",
+          borderWidth: "0px",
+          boxShadow: "0px 0px 5px",
         }}
       />
 
@@ -86,6 +88,8 @@ const UpdateNote = () => {
           height: "50px",
           borderRadius: "20px",
           marginTop: "10px",
+          borderWidth: "0px",
+          boxShadow: "0px 0px 5px",
         }}
       />
 
@@ -95,7 +99,9 @@ const UpdateNote = () => {
           height: "50px",
           borderRadius: "20px",
           marginTop: "10px",
-          backgroundColor: "#fade26",
+          backgroundColor: "#3B82F6",
+          borderWidth: "0px",
+          boxShadow: "0px 0px 5px",
         }}
         onClick={handleUpdate}
       >

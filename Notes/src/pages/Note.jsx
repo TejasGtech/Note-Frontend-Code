@@ -7,9 +7,7 @@ const Note = () => {
   const [title, setTitle] = useState("");
   const [notes, setNotes] = useState("");
   const [message, setMessage] = useState("");
-  const [noteData, setNoteData] = useState([
-    { id: 1, title: "hello", notes: "hello" },
-  ]);
+  const [noteData, setNoteData] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -98,22 +96,25 @@ const Note = () => {
         alignItems: "center",
       }}
     >
-      <h1 style={{ color: "#fade26" }}>NoteX</h1>
+      <h1 style={{ color: "#F8FAFC" }}>NoteX</h1>
 
       <button
         onClick={Logout}
         style={{
-          color: "white",
+          color: "#000",
           width: "100px",
           backgroundColor: "red",
           borderRadius: "20px",
           height: "40px",
+          boxShadow: "0px 1px 10px",
+          borderWidth: "0px",
+          fontWeight: 900,
         }}
       >
         Logout
       </button>
 
-      <h2 style={{ color: "#fade26" }}>Create notes</h2>
+      <h2 style={{ color: "#F8FAFC" }}>Create notes</h2>
 
       <h4 style={{ color: "#15b55d" }}>{message}</h4>
       <input
@@ -126,6 +127,8 @@ const Note = () => {
           height: "50px",
           borderRadius: "20px",
           marginTop: "10px",
+          borderWidth: "0px",
+          boxShadow: "0px 1px 10px",
         }}
       />
       <input
@@ -138,6 +141,8 @@ const Note = () => {
           height: "50px",
           borderRadius: "20px",
           marginTop: "10px",
+          borderWidth: "0px",
+          boxShadow: "0px 1px 10px",
         }}
       />
       <button
@@ -147,13 +152,17 @@ const Note = () => {
           height: "50px",
           borderRadius: "20px",
           marginTop: "10px",
-          backgroundColor: "#fade26",
+          backgroundColor: "#3B82F6",
+          borderWidth: "0px",
+          boxShadow: "0px 1px 10px",
+          fontWeight: 900,
+          fontSize: "20px",
         }}
       >
-        {loading ? <h3>Loading....</h3> : <h3>Create note</h3>}
+        {loading ? "Loading...." : "Create note"}
       </button>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <h1 style={{ color: "#fade26" }}>All Notes</h1>
+        <h1 style={{ color: "#F8FAFC" }}>All Notes</h1>
         <button
           onClick={FetchNotes}
           style={{
@@ -162,7 +171,10 @@ const Note = () => {
             borderRadius: "20px",
             marginTop: "28px",
             marginLeft: "20px",
-            backgroundColor: "#79cbdb",
+            backgroundColor: "#06B6D4",
+            borderWidth: "0px",
+            boxShadow: "0px 1px 10px",
+            fontWeight: 900,
           }}
         >
           Refresh
@@ -175,18 +187,32 @@ const Note = () => {
             <div
               key={elem._id}
               style={{
-                backgroundColor: "#fade26",
-                width: "400px",
-                height: "130px",
+                backgroundColor: "#1E293B",
+
                 borderRadius: "20px",
                 justifyContent: "center",
                 alignItems: "center",
+                borderWidth: "0px",
+                boxShadow: "0px 1px 10px",
+                paddingLeft: "10px",
+                paddingRight: "10px",
+                paddingBottom: "10px",
               }}
             >
-              <h4 style={{ marginLeft: "20px", paddingTop: "10px" }}>
-                Title :{elem.title}
+              <h4
+                style={{
+                  marginLeft: "20px",
+                  paddingTop: "10px",
+                  color: "#06B6D4",
+                }}
+              >
+                {elem.title}
               </h4>
-              <h5 style={{ marginLeft: "20px" }}>Notes: {elem.notes}</h5>
+
+              <h5 style={{ marginLeft: "20px", color: "#F8FAFC" }}>
+                {" "}
+                {elem.notes}
+              </h5>
               <div style={{ display: "flex" }}>
                 <button
                   onClick={() => DeleteNote(elem._id)}
@@ -196,15 +222,16 @@ const Note = () => {
                     height: "30px",
                     borderRadius: "20px",
                     marginLeft: "10px",
-                    color: "#fff",
+                    color: "#000",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    borderWidth: "0px",
+                    boxShadow: "0px 0px 5px",
+                    fontWeight: 900,
                   }}
                 >
-                  <h4 style={{ marginBottom: "10px" }}>
-                    {loading ? <h4>Loading....</h4> : <h4>Delete</h4>}
-                  </h4>
+                  {loading ? "Loading...." : "Delete"}
                 </button>
                 <button
                   onClick={() => sendID(elem)}
@@ -214,10 +241,13 @@ const Note = () => {
                     height: "30px",
                     borderRadius: "20px",
                     marginLeft: "10px",
-                    color: "#fff",
+                    color: "#000",
+                    borderWidth: "0px",
+                    boxShadow: "0px 0px 5px",
+                    fontWeight: 900,
                   }}
                 >
-                  Update note
+                  Update
                 </button>
               </div>
             </div>

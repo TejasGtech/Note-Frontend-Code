@@ -32,24 +32,21 @@ const Login = () => {
     setLoading(false);
   };
 
-  const sendOtp = async()=>{
+  const sendOtp = async () => {
     try {
+      const { data, error } = await supabase.auth.signInWithOtp({
+        phone: "+91 8983746674",
+      });
 
-    const { data, error } = await supabase.auth.signInWithOtp({
-      phone: '+91 8983746674'
-    });
-
-    if (error) {
-      return { success: false, message: error.message };
+      if (error) {
+        return { success: false, message: error.message };
+      }
+      console.log("send otp seccufully");
+      return { success: true, message: "OTP sent successfully" };
+    } catch (err) {
+      return { success: false, message: "Something went wrong" };
     }
-    console.log('send otp seccufully');
-    return { success: true, message: "OTP sent successfully" };
-    
-
-  } catch (err) {
-    return { success: false, message: "Something went wrong" };
-  }
-  }
+  };
   return (
     <div
       style={{
@@ -59,7 +56,7 @@ const Login = () => {
         alignItems: "center",
       }}
     >
-      <h1 style={{ color: "#fade26" }}>Login Now</h1>
+      <h1 style={{ color: "#F8FAFC" }}>Login Now</h1>
       <h4 style={{ color: "red" }}>{message}</h4>
       <input
         type="text"
@@ -70,7 +67,9 @@ const Login = () => {
           width: "400px",
           height: "50px",
           borderRadius: "20px",
-          marginTop: "10px",
+
+          borderWidth: "0px",
+          boxShadow: "0px 1px 10px",
         }}
       />
       <input
@@ -83,6 +82,8 @@ const Login = () => {
           height: "50px",
           borderRadius: "20px",
           marginTop: "10px",
+          borderWidth: "0px",
+          boxShadow: "0px 1px 10px",
         }}
       />
       <button
@@ -92,14 +93,16 @@ const Login = () => {
           height: "50px",
           borderRadius: "20px",
           marginTop: "10px",
-          backgroundColor: "#fade26",
+          backgroundColor: "#3B82F6",
+          borderWidth: "0px",
+          boxShadow: "0px 1px 10px",
         }}
       >
         {loading ? <h3>Loading....</h3> : <h3>Login</h3>}
       </button>
       <h3 style={{ color: "#fff" }}>
         I don't have account?{" "}
-        <Link to="/register" style={{ color: "#fade26" }}>
+        <Link to="/register" style={{ color: "#06B6D4" }}>
           Register
         </Link>
       </h3>

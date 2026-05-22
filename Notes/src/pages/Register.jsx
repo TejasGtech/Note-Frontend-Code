@@ -41,7 +41,7 @@ const Register = () => {
         alignItems: "center",
       }}
     >
-      <h1 style={{ color: "#fade26" }}>Register Now</h1>
+      <h1 style={{ color: "#F8FAFC" }}>Register Now</h1>
       <h4 style={{ color: "red" }}>{message}</h4>
       <input
         type="text"
@@ -52,7 +52,9 @@ const Register = () => {
           width: "400px",
           height: "50px",
           borderRadius: "20px",
-          marginTop: "10px",
+
+          borderWidth: "0px",
+          boxShadow: "0px 1px 10px",
         }}
       />
       <input
@@ -65,6 +67,8 @@ const Register = () => {
           height: "50px",
           borderRadius: "20px",
           marginTop: "10px",
+          borderWidth: "0px",
+          boxShadow: "0px 1px 10px",
         }}
       />
       <input
@@ -78,6 +82,8 @@ const Register = () => {
           height: "50px",
           borderRadius: "20px",
           marginTop: "10px",
+          borderWidth: "0px",
+          boxShadow: "0px 1px 10px",
         }}
       />
       <button
@@ -87,14 +93,16 @@ const Register = () => {
           height: "50px",
           borderRadius: "20px",
           marginTop: "10px",
-          backgroundColor: "#fade26",
+          backgroundColor: "#3B82F6",
+          borderWidth: "0px",
+          boxShadow: "0px 1px 10px",
         }}
       >
         {loading ? <h3>Loading....</h3> : <h3>Register</h3>}
       </button>
       <h3 style={{ color: "#fff" }}>
         I have account?{" "}
-        <Link to="/login" style={{ color: "#fade26" }}>
+        <Link to="/login" style={{ color: "#06B6D4" }}>
           login
         </Link>
       </h3>
