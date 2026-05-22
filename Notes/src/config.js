@@ -1,3 +1,3 @@
-const Backend_URL = process.env.VITE_Backend_URL;
+const Backend_URL = import.meta.env.VITE_Backend_UR;
 
 export default Backend_URL;
